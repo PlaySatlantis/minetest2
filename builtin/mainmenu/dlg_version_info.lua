@@ -149,6 +149,11 @@ end
 
 function check_new_version()
 	local url = core.settings:get("update_information_url")
+
+	if true then
+		return
+	end
+
 	if core.settings:get("update_last_checked") == "disabled" or
 			url == "" then
 		-- Never show any updates

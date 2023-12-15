@@ -163,8 +163,8 @@ void signal_handler_init(void)
 */
 
 // Default to RUN_IN_PLACE style relative paths
-std::string path_share = "..";
-std::string path_user = "..";
+std::string path_share = "." DIR_DELIM "data";
+std::string path_user = "." DIR_DELIM "data";
 std::string path_locale = path_share + DIR_DELIM + "locale";
 std::string path_cache = path_user + DIR_DELIM + "cache";
 
@@ -617,6 +617,7 @@ void initializePaths()
 	}
 	path_cache = path_user + DIR_DELIM + "cache";
 #else
+	char buf[BUFSIZ];
 	infostream << "Using system-wide paths (NOT RUN_IN_PLACE)" << std::endl;
 
 	if (!setSystemPaths())
@@ -644,6 +645,25 @@ void initializePaths()
 	migrateCachePath();
 #  endif // _WIN32
 #endif // RUN_IN_PLACE
+
+
+	bool successful =
+		getCurrentExecPath(buf, sizeof(buf)) ||
+		getExecPathFromProcfs(buf, sizeof(buf));
+
+	if(!successful)
+	{
+		errorstream << "Failed to get paths by executable location, "
+			"trying cwd" << std::endl;
+		return;
+	}
+
+	pathRemoveFile(buf, DIR_DELIM_CHAR);
+	std::string execpath(buf);
+
+	path_share = execpath + DIR_DELIM + "data";
+	path_user = path_share;
+	path_cache = execpath + DIR_DELIM + "data" + DIR_DELIM + "cache";
 
 	infostream << "Detected share path: " << path_share << std::endl;
 	infostream << "Detected user path: " << path_user << std::endl;

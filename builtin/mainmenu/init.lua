@@ -55,7 +55,9 @@ local tabs = {
 	content  = dofile(menupath .. DIR_DELIM .. "tab_content.lua"),
 	about = dofile(menupath .. DIR_DELIM .. "tab_about.lua"),
 	local_game = dofile(menupath .. DIR_DELIM .. "tab_local.lua"),
-	play_online = dofile(menupath .. DIR_DELIM .. "tab_online.lua")
+	play_online = dofile(menupath .. DIR_DELIM .. "tab_online.lua"),
+	custom_menu = dofile(menupath .. DIR_DELIM .. "tab_custom_menu.lua"),
+	logged_in_menu = dofile(menupath .. DIR_DELIM .. "logged_in_menu.lua")
 }
 
 --------------------------------------------------------------------------------
@@ -88,19 +90,33 @@ local function init_globals()
 	menudata.worldlist:set_sortmode("alphabetic")
 
 	mm_game_theme.init()
-	mm_game_theme.set_engine() -- This is just a fallback.
-
+	mm_game_theme.set_engine(true) -- This is just a fallback.
 	-- Create main tabview
-	local tv_main = tabview_create("maintab", {x = 15.5, y = 7.1}, {x = 0, y = 0})
+	local tv_main = tabview_create("maintab", {x = 8, y = 7.8}, {x = 0, y = 0})
 
 	tv_main:set_autosave_tab(true)
-	tv_main:add(tabs.local_game)
-	tv_main:add(tabs.play_online)
-	tv_main:add(tabs.content)
-	tv_main:add(tabs.about)
+
+	local active_user_name = core.settings:get("name")
+	local active_user_pass = core.settings:get("active_user_pass")
+
+	tabs.logged_in_menu.tabdata = tv_main
+	tv_main:add(tabs.logged_in_menu)
+	tv_main:add(tabs.custom_menu)
+
+	-- tv_main:add(tabs.local_game)
+	-- tv_main:add(tabs.play_online)
+	-- tv_main:add(tabs.content)
+	-- tv_main:add(tabs.about)
 
 	tv_main:set_global_event_handler(main_event_handler)
 	tv_main:set_fixed_size(false)
+
+	if active_user_name and active_user_pass and active_user_pass ~= "" then
+		tv_main:set_tab("logged_in")
+	else
+		core.settings:set("active_user_pass", "")
+		tv_main:set_tab("custom_menu")
+	end
 
 	local last_tab = core.settings:get("maintab_LAST")
 	if last_tab and tv_main.current_tab ~= last_tab then

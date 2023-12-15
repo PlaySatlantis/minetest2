@@ -1,3 +1,19 @@
+Satlantis Minetest Launcher
+========
+
+Making a Release
+------------------
+
+After building the project, do the following steps to create a release:
+
+1. Create a folder named release
+2. Copy the contents of bin/Release into release
+3. Create release/data
+4. Copy builtin, client, fonts, games, misc, textures, po and worlds into release/data
+5. rename po to locale
+
+**Original Repo Below**
+
 Minetest
 ========
 

@@ -123,7 +123,8 @@ local function handle_buttons(self,fields)
 
 	local tab = self.tablist[self.last_tab_index]
 	if tab.button_handler ~= nil then
-		return tab.button_handler(self, fields, tab.name, tab.tabdata)
+		-- return tab.button_handler(self, fields, tab.name, tab.tabdata)
+		return tab.button_handler(self, fields, tab.name, self)
 	end
 
 	return false
@@ -152,22 +153,23 @@ end
 
 --------------------------------------------------------------------------------
 local function tab_header(self, size)
-	local toadd = ""
+	return ""
+	-- local toadd = ""
 
-	for i = 1, #self.tablist do
-		if toadd ~= "" then
-			toadd = toadd .. ","
-		end
+	-- for i = 1, #self.tablist do
+	-- 	if toadd ~= "" then
+	-- 		toadd = toadd .. ","
+	-- 	end
 
-		local caption = self.tablist[i].caption
-		if type(caption) == "function" then
-			caption = caption(self)
-		end
+	-- 	local caption = self.tablist[i].caption
+	-- 	if type(caption) == "function" then
+	-- 		caption = caption(self)
+	-- 	end
 
-		toadd = toadd .. caption
-	end
-	return string.format("tabheader[%f,%f;%f,%f;%s;%s;%i;true;false]",
-			self.header_x, self.header_y, size.width, size.height, self.name, toadd, self.last_tab_index)
+	-- 	toadd = toadd .. caption
+	-- end
+	-- return string.format("tabheader[%f,%f;%f,%f;%s;%s;%i;true;false]",
+	-- 		self.header_x, self.header_y, size.width, size.height, self.name, toadd, self.last_tab_index)
 end
 
 --------------------------------------------------------------------------------

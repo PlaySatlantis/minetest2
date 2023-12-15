@@ -113,6 +113,7 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 			if (m_allow_login_or_register == ELoginRegister::Login) {
 				m_access_denied_reason =
 						gettext("Name is not registered. To create an account on this server, click 'Register'");
+				g_settings->set("active_user_pass", "");
 			} else {
 				m_access_denied_reason =
 						gettext("Name is taken. Please choose another name");
@@ -210,6 +211,14 @@ void Client::handleCommand_AccessDenied(NetworkPacket* pkt)
 
 	u8 denyCode;
 	*pkt >> denyCode;
+
+	if(denyCode == SERVER_ACCESSDENIED_WRONG_PASSWORD ||
+	   denyCode == SERVER_ACCESSDENIED_WRONG_NAME ||
+	   denyCode == SERVER_ACCESSDENIED_WRONG_CHARS_IN_NAME ||
+	   denyCode == SERVER_ACCESSDENIED_EMPTY_PASSWORD)
+	{
+		g_settings->set("active_user_pass", "");
+	}
 
 	if (denyCode == SERVER_ACCESSDENIED_SHUTDOWN ||
 			denyCode == SERVER_ACCESSDENIED_CRASH) {
