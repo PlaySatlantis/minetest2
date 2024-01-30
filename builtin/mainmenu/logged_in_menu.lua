@@ -83,8 +83,8 @@ local function main_button_handler(tabview, fields, name, tabdata)
 	if (fields.btn_mp_login or fields.key_enter) then
 		gamedata.playername = fields.te_name
 		gamedata.password   = fields.te_pwd
-		gamedata.address    = "156.236.84.45"
-		gamedata.port       = 30001
+		gamedata.address    = satlantis_server_address
+		gamedata.port       = satlantis_server_port
 		gamedata.playername = core.settings:get("name")
 		gamedata.password   = core.settings:get("active_user_pass")
 

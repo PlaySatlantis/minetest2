@@ -1662,6 +1662,7 @@ bool Game::connectToServer(const GameStartData &start_data,
 			if (!start_data.address.empty() && wait_time > 10) {
 				*error_message = gettext("Connection timed out.");
 				errorstream << *error_message << std::endl;
+				g_settings->set("active_user_pass", "");
 				break;
 			}
 

@@ -15,6 +15,9 @@
 --with this program; if not, write to the Free Software Foundation, Inc.,
 --51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+satlantis_server_address = "go.satlantis.net"
+satlantis_server_port = 30001
+
 mt_color_grey  = "#AAAAAA"
 mt_color_blue  = "#6389FF"
 mt_color_lightblue  = "#99CCFF"

@@ -34,6 +34,7 @@ local function get_formspec(tabview, name, tabdata)
 		"field[0.25,1.1;2.625,0.55;te_name;;" .. core.formspec_escape(core.settings:get("name")) .. "]" ..
 		"pwdfield[0.25,2.25;2.625,0.55;te_pwd;]" ..
 		"container_end[]" ..
+		"button[3.4,6.4;2.0,0.6;btn_mp_register;" .. fgettext("Register") .. "]" ..
 		"button[5.6,6.4;2.0,0.6;btn_mp_login;" .. fgettext("Login") .. "]" ..
 		"container_end[]"
 
@@ -75,11 +76,33 @@ local function main_button_handler(tabview, fields, name, tabdata)
 		core.settings:set("name", fields.te_name)
 	end
 
-	if ((fields.btn_mp_login or fields.key_enter) and (fields.te_name ~= "" and fields.te_pwd ~= "")) then
+	if ((fields.btn_mp_register) and (fields.te_name ~= "" and fields.te_pwd ~= "")) then
 		gamedata.playername = fields.te_name
 		gamedata.password   = fields.te_pwd
-		gamedata.address    = "156.236.84.45"
-		gamedata.port       = 30001
+		gamedata.address    = satlantis_server_address
+		gamedata.port       = satlantis_server_port
+		gamedata.allow_login_or_register = "register"
+		gamedata.selected_world = 0
+
+		core.settings:set("address",     gamedata.address)
+		core.settings:set("remote_port", gamedata.port)
+
+		core.settings:set("name", fields.te_name)
+		core.settings:set("active_user_pass", fields.te_pwd)
+
+		core.start()
+		return true
+	end
+
+	if ((fields.btn_mp_login) and (fields.te_name ~= "" and fields.te_pwd ~= "")) then
+		gamedata.playername = fields.te_name
+		gamedata.password   = fields.te_pwd
+
+		assert(satlantis_server_address ~= nil)
+		assert(satlantis_server_port ~= nil)
+
+		gamedata.address    = satlantis_server_address
+		gamedata.port       = satlantis_server_port
 
 		local enable_split_login_register = core.settings:get_bool("enable_split_login_register")
 		gamedata.allow_login_or_register = enable_split_login_register and "login" or "any"
@@ -108,7 +131,7 @@ local function main_button_handler(tabview, fields, name, tabdata)
 
 			serverlistmgr.add_favorite({
 				address = gamedata.address,
-				port = gamedata.port,
+				port = tonumber(gamedata.port),
 			})
 		end
 

@@ -113,11 +113,11 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 			if (m_allow_login_or_register == ELoginRegister::Login) {
 				m_access_denied_reason =
 						gettext("Name is not registered. To create an account on this server, click 'Register'");
-				g_settings->set("active_user_pass", "");
 			} else {
 				m_access_denied_reason =
 						gettext("Name is taken. Please choose another name");
 			}
+			g_settings->set("active_user_pass", "");
 			m_con->Disconnect();
 		} else {
 			startAuth(chosen_auth_mechanism);
