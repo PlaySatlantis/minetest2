@@ -114,7 +114,7 @@ else()
 	find_package(IrrlichtMt QUIET)
 	if(NOT TARGET IrrlichtMt::IrrlichtMt)
 		string(CONCAT explanation_msg
-			"The Minetest team has forked Irrlicht to make their own customizations. "
+			"The Satlantis team has forked Irrlicht to make their own customizations. "
 			"It can be found here: https://github.com/minetest/irrlicht\n"
 			"For example use: git clone --depth=1 https://github.com/minetest/irrlicht lib/irrlichtmt\n")
 		if(BUILD_CLIENT)

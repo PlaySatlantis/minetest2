@@ -1,4 +1,4 @@
-project(minetest)
+project(satlantis)
 
 INCLUDE(CheckTypeSize)
 INCLUDE(CheckIncludeFiles)
@@ -6,12 +6,12 @@ INCLUDE(CheckLibraryExists)
 
 check_type_size(int SIZEOF_INT BUILTIN_TYPES_ONLY LANGUAGE CXX)
 if(SIZEOF_INT LESS 4)
-	message(FATAL_ERROR "Minetest will not work with int less than 32 bits wide.")
+	message(FATAL_ERROR "Satlantis will not work with int less than 32 bits wide.")
 endif()
 
 check_type_size(size_t SIZEOF_SIZE_T LANGUAGE CXX)
 if(SIZEOF_SIZE_T LESS 4)
-	message(FATAL_ERROR "Minetest will not work with size_t less than 32 bits wide.")
+	message(FATAL_ERROR "Satlantis will not work with size_t less than 32 bits wide.")
 endif()
 
 # Add custom SemiDebug build mode
@@ -709,7 +709,7 @@ elseif(NOT MSVC)
 	check_c_source_compiles("#include <lua.h>\nint main(){return sizeof(lua_atccall);}" HAVE_ATCCALL)
 	if(NOT HAVE_ATCCALL)
 		string(CONCAT explanation_msg
-			"It looks like you're trying to build Minetest using a system-wide "
+			"It looks like you're trying to build Satlantis using a system-wide "
 			"Lua installation. This is no longer supported because PUC Lua "
 			"cannot interoperate with C++ correctly. Read src/unittest/test_lua.cpp "
 			" for technical details.")
@@ -771,7 +771,7 @@ else()
 	set(MATH_FLAGS "-fno-math-errno -fno-trapping-math -fno-signed-zeros")
 
 	# Enable SSE for floating point math on 32-bit x86 by default
-	# reasoning see minetest issue #11810 and https://gcc.gnu.org/wiki/FloatingPointMath
+	# reasoning see Satlantis issue #11810 and https://gcc.gnu.org/wiki/FloatingPointMath
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		check_c_source_compiles("#ifndef __i686__\n#error\n#endif\nint main(){}" IS_I686)
 		if(IS_I686)
