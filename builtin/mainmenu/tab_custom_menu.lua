@@ -76,21 +76,12 @@ local function main_button_handler(tabview, fields, name, tabdata)
 		core.settings:set("name", fields.te_name)
 	end
 
-	if ((fields.btn_mp_register) and (fields.te_name ~= "" and fields.te_pwd ~= "")) then
-		gamedata.playername = fields.te_name
-		gamedata.password   = fields.te_pwd
-		gamedata.address    = satlantis_server_address
-		gamedata.port       = satlantis_server_port
-		gamedata.allow_login_or_register = "register"
-		gamedata.selected_world = 0
+	if (fields.btn_mp_register) then
+		local dlg = create_register_dialog(satlantis_server_address, tonumber(satlantis_server_port))
+		dlg:set_parent(tabview)
+		tabview:hide()
+		dlg:show()
 
-		core.settings:set("address",     gamedata.address)
-		core.settings:set("remote_port", gamedata.port)
-
-		core.settings:set("name", fields.te_name)
-		core.settings:set("active_user_pass", fields.te_pwd)
-
-		core.start()
 		return true
 	end
 

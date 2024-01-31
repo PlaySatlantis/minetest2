@@ -102,16 +102,16 @@ local function main_button_handler(tabview, fields, name, tabdata)
 
 			serverlistmgr.add_favorite(server)
 
-			gamedata.servername        = server.name
-			gamedata.serverdescription = server.description
+			gamedata.servername        = "Satlantis"
+			gamedata.serverdescription = "The Game That Shares Profits With Players"
 
 			if not is_server_protocol_compat_or_error(
 						server.proto_min, server.proto_max) then
 				return true
 			end
 		else
-			gamedata.servername        = ""
-			gamedata.serverdescription = ""
+			gamedata.servername        = "Satlantis"
+			gamedata.serverdescription = "The Game That Shares Profits With Players"
 
 			serverlistmgr.add_favorite({
 				address = gamedata.address,
