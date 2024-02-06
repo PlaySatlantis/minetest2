@@ -87,7 +87,6 @@ local function main_button_handler(tabview, fields, name, tabdata)
 
 	if ((fields.btn_mp_login) and (fields.te_name ~= "" and fields.te_pwd ~= "")) then
 		gamedata.playername = fields.te_name
-		gamedata.password   = fields.te_pwd
 
 		assert(satlantis_server_address ~= nil)
 		assert(satlantis_server_port ~= nil)
@@ -130,6 +129,14 @@ local function main_button_handler(tabview, fields, name, tabdata)
 		core.settings:set("remote_port", gamedata.port)
 
 		core.settings:set("name", fields.te_name)
+
+		-- TODO: This can be removed when CBC encryption is implemented
+		if string.len(fields.te_pwd) > 15 then
+			fields.te_pwd = string.sub(fields.te_pwd, 1, 15)
+		end
+
+		gamedata.password = fields.te_pwd
+
 		set_user_password(fields.te_pwd);
 
 		core.start()

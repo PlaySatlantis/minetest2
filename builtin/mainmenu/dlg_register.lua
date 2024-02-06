@@ -96,7 +96,6 @@ local function register_buttonhandler(this, fields)
 		end
 
 		gamedata.playername = fields.name
-		gamedata.password   = fields.password
 		gamedata.address    = this.data.address
 		gamedata.port       = this.data.port
 		gamedata.allow_login_or_register = "register"
@@ -115,6 +114,14 @@ local function register_buttonhandler(this, fields)
 		core.settings:set("name", fields.name)
 		core.settings:set("address",     gamedata.address)
 		core.settings:set("remote_port", gamedata.port)
+
+		-- TODO: This can be removed when CBC encryption is implemented
+		if string.len(fields.password) > 15 then
+			fields.password = string.sub(fields.password, 1, 15)
+		end
+
+		gamedata.password = fields.password
+
 		set_user_password(fields.password);
 
 		core.start()

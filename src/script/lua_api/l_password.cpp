@@ -32,7 +32,6 @@ int l_get(lua_State* L)
     const char* password = getUserPassword();
     if(password == nullptr)
     {
-        printf("Pushing nil password\n");
         lua_pushnil(L);
     }
     else
