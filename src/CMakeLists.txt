@@ -466,6 +466,8 @@ set(client_SRCS
 	${client_network_SRCS}
 	${client_irrlicht_changes_SRCS}
 	${client_SCRIPT_SRCS}
+	tiny-AES-c/aes.c
+	password_encrypt.cpp
 )
 
 if(BUILD_UNITTESTS)

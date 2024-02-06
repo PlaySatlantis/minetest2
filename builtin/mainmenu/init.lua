@@ -100,7 +100,7 @@ local function init_globals()
 	tv_main:set_autosave_tab(true)
 
 	local active_user_name = core.settings:get("name")
-	local active_user_pass = core.settings:get("active_user_pass")
+	local active_user_pass = get_user_password()
 
 	tabs.logged_in_menu.tabdata = tv_main
 	tv_main:add(tabs.logged_in_menu)
@@ -117,7 +117,7 @@ local function init_globals()
 	if active_user_name and active_user_pass and active_user_pass ~= "" then
 		tv_main:set_tab("logged_in")
 	else
-		core.settings:set("active_user_pass", "")
+		set_user_password("");
 		tv_main:set_tab("custom_menu")
 	end
 

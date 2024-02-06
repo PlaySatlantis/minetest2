@@ -74,6 +74,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "script/scripting_client.h"
 #include "hud.h"
 #include "clientdynamicinfo.h"
+#include "password_encrypt.h"
 
 #if USE_SOUND
 	#include "client/sound/sound_openal.h"
@@ -1662,7 +1663,7 @@ bool Game::connectToServer(const GameStartData &start_data,
 			if (!start_data.address.empty() && wait_time > 10) {
 				*error_message = gettext("Connection timed out.");
 				errorstream << *error_message << std::endl;
-				g_settings->set("active_user_pass", "");
+				clearUserPassword();
 				break;
 			}
 

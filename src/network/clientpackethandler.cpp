@@ -46,6 +46,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "gettext.h"
 #include "skyparams.h"
 #include "particles.h"
+#include "password_encrypt.h"
 #include <memory>
 
 void Client::handleCommand_Deprecated(NetworkPacket* pkt)
@@ -117,7 +118,8 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 				m_access_denied_reason =
 						gettext("Name is taken. Please choose another name");
 			}
-			g_settings->set("active_user_pass", "");
+			clearUserPassword();
+
 			m_con->Disconnect();
 		} else {
 			startAuth(chosen_auth_mechanism);
@@ -217,7 +219,7 @@ void Client::handleCommand_AccessDenied(NetworkPacket* pkt)
 	   denyCode == SERVER_ACCESSDENIED_WRONG_CHARS_IN_NAME ||
 	   denyCode == SERVER_ACCESSDENIED_EMPTY_PASSWORD)
 	{
-		g_settings->set("active_user_pass", "");
+		clearUserPassword();
 	}
 
 	if (denyCode == SERVER_ACCESSDENIED_SHUTDOWN ||

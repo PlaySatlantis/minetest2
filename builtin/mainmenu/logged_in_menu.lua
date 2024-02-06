@@ -75,7 +75,7 @@ local function main_button_handler(tabview, fields, name, tabdata)
 	end
 
 	if fields.btn_mp_change_user then
-		core.settings:set("active_user_pass", "")
+		set_user_password("");
 		tabdata:set_tab("custom_menu")
 		return true
 	end
@@ -86,7 +86,7 @@ local function main_button_handler(tabview, fields, name, tabdata)
 		gamedata.address    = satlantis_server_address
 		gamedata.port       = satlantis_server_port
 		gamedata.playername = core.settings:get("name")
-		gamedata.password   = core.settings:get("active_user_pass")
+		gamedata.password = get_user_password();
 
 		local enable_split_login_register = core.settings:get_bool("enable_split_login_register")
 		gamedata.allow_login_or_register = enable_split_login_register and "login" or "any"

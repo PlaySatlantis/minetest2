@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_util.h"
 #include "lua_api/l_settings.h"
 #include "log.h"
+#include "lua_api/l_password.h"
 
 extern "C" {
 #include "lualib.h"
@@ -83,6 +84,7 @@ void MainMenuScripting::initializeModApi(lua_State *L, int top)
 void MainMenuScripting::registerLuaClasses(lua_State *L, int top)
 {
 	LuaSettings::Register(L);
+	luapassword::init(L);
 	MainMenuSoundHandle::Register(L);
 }
 

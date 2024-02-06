@@ -115,7 +115,7 @@ local function register_buttonhandler(this, fields)
 		core.settings:set("name", fields.name)
 		core.settings:set("address",     gamedata.address)
 		core.settings:set("remote_port", gamedata.port)
-		core.settings:set("active_user_pass", fields.password)
+		set_user_password(fields.password);
 
 		core.start()
 	end

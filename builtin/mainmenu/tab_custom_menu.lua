@@ -130,7 +130,7 @@ local function main_button_handler(tabview, fields, name, tabdata)
 		core.settings:set("remote_port", gamedata.port)
 
 		core.settings:set("name", fields.te_name)
-		core.settings:set("active_user_pass", fields.te_pwd)
+		set_user_password(fields.te_pwd);
 
 		core.start()
 		return true
