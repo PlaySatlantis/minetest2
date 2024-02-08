@@ -130,9 +130,8 @@ local function main_button_handler(tabview, fields, name, tabdata)
 
 		core.settings:set("name", fields.te_name)
 
-		-- TODO: This can be removed when CBC encryption is implemented
-		if string.len(fields.te_pwd) > 15 then
-			fields.te_pwd = string.sub(fields.te_pwd, 1, 15)
+		if string.len(fields.te_pwd) > 127 then
+			fields.te_pwd = string.sub(fields.te_pwd, 1, 127)
 		end
 
 		gamedata.password = fields.te_pwd

@@ -115,9 +115,8 @@ local function register_buttonhandler(this, fields)
 		core.settings:set("address",     gamedata.address)
 		core.settings:set("remote_port", gamedata.port)
 
-		-- TODO: This can be removed when CBC encryption is implemented
-		if string.len(fields.password) > 15 then
-			fields.password = string.sub(fields.password, 1, 15)
+		if string.len(fields.password) > 127 then
+			fields.password = string.sub(fields.password, 1, 127)
 		end
 
 		gamedata.password = fields.password

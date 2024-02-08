@@ -18,15 +18,6 @@ void init(lua_State* L)
     lua_setglobal(L, "set_user_password");
 }
 
-// int create_object(lua_State* L)
-// {
-// 	LuaSettings* o = new LuaSettings(filename, write_allowed);
-// 	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
-// 	luaL_getmetatable(L, name);
-// 	lua_setmetatable(L, -2);
-// 	return 1;
-// }
-
 int l_get(lua_State* L)
 {
     const char* password = getUserPassword();
